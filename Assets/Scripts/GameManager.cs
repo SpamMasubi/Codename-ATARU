@@ -36,6 +36,9 @@ public class GameManager : MonoBehaviour
     private MusicController theMC;
     private int newTrack;
 
+    public GameObject bossDialogue;
+    public Animator anim;
+
     public enum GameManagerState
     {
         Opening,
@@ -79,7 +82,7 @@ public class GameManager : MonoBehaviour
                 TitleName.SetActive(false);
 
                 //reset points to zero
-                if (MainMenuButtons.newGame && !playAgain || playAgain)
+                if (MainMenuButtons.newGame && !playAgain || playAgain || MainMenuButtons.replayGame)
                 {
                     //set the player active and init playerLives and inventory
                     playerJet.GetComponent<PlayerController>().Init();
@@ -105,21 +108,21 @@ public class GameManager : MonoBehaviour
                 JoystickInner.SetActive(true);
 
                 //start enemy spawner
-                if (MainMenuButtons.level1)
+                if (MainMenuButtons.level1 || StageSelect.replayLevel1)
                 {
                     enemySpawner.GetComponent<EnemyMiGSpawner>().ScheduleEnemySpawner();
                     cargoSpawner.GetComponent<EnemyCargoSpawner>().ScheduleEnemySpawner();
                     //start the killCount
                     EnemyKillCountObj.GetComponent<EnemyKillCount>().KillCount = 20;
                 }
-                else if (AttackHeliBoss.isBossDead)
+                else if (AttackHeliBoss.isBossDead || StageSelect.replayLevel2)
                 {
                     secondFighterSpawner.GetComponent<EnemySukhoiSpawner>().ScheduleEnemySpawner();
                     cargoSpawner.GetComponent<EnemyCargoSpawner>().ScheduleEnemySpawner();
                     //start the killCount
                     EnemyKillCountObj.GetComponent<EnemyKillCount>().KillCount = 30;
                 }
-                else if (StealthFighterBoss.isBossDead)
+                else if (StealthFighterBoss.isBossDead || StageSelect.replayLevel3)
                 {
                     enemySpawner.GetComponent<EnemyMiGSpawner>().ScheduleEnemySpawner();
                     secondFighterSpawner.GetComponent<EnemySukhoiSpawner>().ScheduleEnemySpawner();
@@ -140,23 +143,26 @@ public class GameManager : MonoBehaviour
                 rightWall.SetActive(true);
                 leftWall.SetActive(true);
                 //start enemy spawner
-                if (MainMenuButtons.level1)
+                if (MainMenuButtons.level1 || StageSelect.replayLevel1)
                 {
                     newTrack = 3;
                     theMC.SwitchTrack(newTrack);
+                    StartCoroutine(startBossDialogue());
                     heliBoss.SetActive(true);
                 }
-                else if (AttackHeliBoss.isBossDead)
+                else if (AttackHeliBoss.isBossDead || StageSelect.replayLevel2)
                 {
                     newTrack = 3;
                     theMC.SwitchTrack(newTrack);
+                    StartCoroutine(startBossDialogue());
                     stealthFighterBoss.SetActive(true);
                 }
-                else if (StealthFighterBoss.isBossDead)
+                else if (StealthFighterBoss.isBossDead || StageSelect.replayLevel3)
                 {
-                    finalBoss.SetActive(true);
                     newTrack = 5;
                     theMC.SwitchTrack(newTrack);
+                    StartCoroutine(startBossDialogue());
+                    finalBoss.SetActive(true);
                 }
 
 
@@ -172,21 +178,20 @@ public class GameManager : MonoBehaviour
 
                 rightWall.SetActive(false);
                 leftWall.SetActive(false);
-                if (MainMenuButtons.level1)
+                if (MainMenuButtons.level1 || StageSelect.replayLevel1)
                 {
                     heliBoss.SetActive(false);
                     newTrack = 0;
                     theMC.SwitchTrack(newTrack);
                 }
-                else if (AttackHeliBoss.isBossDead)
+                else if (AttackHeliBoss.isBossDead || StageSelect.replayLevel2)
                 {
                     stealthFighterBoss.SetActive(false);
                     newTrack = 2;
                     theMC.SwitchTrack(newTrack);
                 }
-                else if (StealthFighterBoss.isBossDead)
+                else if (StealthFighterBoss.isBossDead || StageSelect.replayLevel3)
                 {
-
                     finalBoss.SetActive(false);
                     newTrack = 4;
                     theMC.SwitchTrack(newTrack);
@@ -272,20 +277,47 @@ public class GameManager : MonoBehaviour
     public void GameOverQuitGame()
     {
         sfx.selection.Play();
+        MainMenuButtons.newGame = false;
+        MainMenuButtons.replayGame = false;
         SceneManager.LoadScene("Main Menu");
     }
 
     public void NextLevel()
     {
-        sfx.selection.Play();
-        gameWinStart.SetActive(false);
-        SceneManager.LoadScene(loadScene);
-        MusicController.musicCanPlay = true;
+        if (MainMenuButtons.replayGame)
+        {
+            sfx.selection.Play();
+            gameWinStart.SetActive(false);
+            SceneManager.LoadScene("Stage Select");
+            MusicController.musicCanPlay = true;
+            StageSelect.replayLevel1 = false;
+            StageSelect.replayLevel2 = false;
+            StageSelect.replayLevel3 = false;
+            StealthFighterBoss.isBossDead = false;
+            AttackHeliBoss.isBossDead = false;
+        }
+        else
+        {
+            sfx.selection.Play();
+            gameWinStart.SetActive(false);
+            SceneManager.LoadScene(loadScene);
+            MusicController.musicCanPlay = true;
+        }
     }
 
     public IEnumerator setNextButtonActive()
     {
         yield return new WaitForSeconds(8.0f);
         nextLevel.SetActive(true);
+    }
+
+    public IEnumerator startBossDialogue()
+    {
+        bossDialogue.SetActive(true);
+        anim.SetBool("isOpen", true);
+        yield return new WaitForSeconds(6.0f);
+        anim.SetBool("isOpen", false);
+        yield return new WaitForSeconds(1.0f);
+        bossDialogue.SetActive(false);
     }
 }

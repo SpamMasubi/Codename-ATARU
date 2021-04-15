@@ -1491,6 +1491,7 @@ GameObject:
   - component: {fileID: 1119272947}
   - component: {fileID: 1119272949}
   - component: {fileID: 1119272948}
+  - component: {fileID: 1119272950}
   m_Layer: 5
   m_Name: VolumeText
   m_TagString: Untagged
@@ -1560,6 +1561,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1119272946}
   m_CullTransparentMesh: 1
+--- !u!114 &1119272950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1119272946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 2, y: 2}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1171915252
 GameObject:
   m_ObjectHideFlags: 0
@@ -1953,6 +1969,7 @@ GameObject:
   - component: {fileID: 1309531709}
   - component: {fileID: 1309531711}
   - component: {fileID: 1309531710}
+  - component: {fileID: 1309531712}
   m_Layer: 5
   m_Name: SettingTitle
   m_TagString: Untagged
@@ -2021,6 +2038,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1309531708}
   m_CullTransparentMesh: 1
+--- !u!114 &1309531712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309531708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 2, y: 2}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1355931488
 GameObject:
   m_ObjectHideFlags: 0
@@ -2784,10 +2816,6 @@ PrefabInstance:
     - target: {fileID: 7366050832798672093, guid: cedbdec86f3d83643bcf4ca22685cdaf, type: 3}
       propertyPath: m_Name
       value: BGM Manager
-      objectReference: {fileID: 0}
-    - target: {fileID: 7366050832798672093, guid: cedbdec86f3d83643bcf4ca22685cdaf, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cedbdec86f3d83643bcf4ca22685cdaf, type: 3}

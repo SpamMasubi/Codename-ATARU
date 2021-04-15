@@ -12,6 +12,7 @@ public class MainMenuButtons : MonoBehaviour
 
     public static bool newGame = false;
     public static bool level1 = false;
+    public static bool replayGame = false;
 
     void Start()
     {
@@ -37,7 +38,8 @@ public class MainMenuButtons : MonoBehaviour
         Debug.Log("Let's play");
         sfxMan.selection.Play();
         newGame = false;
-        //SceneManager.LoadScene(loadScene);
+        replayGame = true;
+        SceneManager.LoadScene("Stage Select");
     }
 
     public void QuitGame()

@@ -49,10 +49,25 @@ public class PauseMenu : MonoBehaviour
 
     public void LoadMainMenu()
     {
-        Time.timeScale = 1f;
-        MusicController.musicCanPlay = true;
-        MusicController.musicPause = false;
-        sfxMan.selection.Play();
-        SceneManager.LoadScene("Main Menu");
+        if (MainMenuButtons.replayGame)
+        {
+            Time.timeScale = 1f;
+            MusicController.musicCanPlay = true;
+            sfxMan.selection.Play();
+            SceneManager.LoadScene("Stage Select");
+            MusicController.musicPause = false;
+            StageSelect.replayLevel1 = false;
+            StageSelect.replayLevel2 = false;
+            StageSelect.replayLevel3 = false;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+            MusicController.musicCanPlay = true;
+            sfxMan.selection.Play();
+            SceneManager.LoadScene("Main Menu");
+            MusicController.musicPause = false;
+            MainMenuButtons.newGame = false;
+        }
     }
 }

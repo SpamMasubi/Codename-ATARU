@@ -23,7 +23,7 @@ public class FlyingFortressSpecial : MonoBehaviour
     {
         if (attackTimer <= 0f && cannonReadyTimer <= 0f)
         {
-            attackTimer = 9.0f;
+            attackTimer = 4.0f;
             cannonReadyTimer = 10.0f;
         }
         if (cannonReadyTimer > 0f)
