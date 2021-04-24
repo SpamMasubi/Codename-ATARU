@@ -49,10 +49,29 @@ public class FlyingFortress : MonoBehaviour
     public GameObject Explosion; //explosion prefab
 
     public GameObject GameManagerObj;//reference to Game Maanger
+    private SFXManager sfx;
 
     void Awake()
     {
-        stats.Init();
+        if (MainMenuButtons.easyMode)
+        {
+            stats.maxHealth = 120;
+            stats.Init();
+        }
+        else if (MainMenuButtons.mediumMode)
+        {
+            stats.Init();
+        }
+        else if (MainMenuButtons.hardMode)
+        {
+            stats.maxHealth = 160;
+            stats.Init();
+        }
+        else
+        {
+            stats.Init();
+        }
+
         if (statsInd != null)
         {
             statsInd.SetHealth(stats.currentHealth, stats.maxHealth);
@@ -63,6 +82,7 @@ public class FlyingFortress : MonoBehaviour
     {
         boss = this.gameObject.GetComponent<Rigidbody2D>();
         enemySprite = GetComponent<SpriteRenderer>();
+        sfx = FindObjectOfType<SFXManager>();
     }
 
     // Update is called once per frame
@@ -162,7 +182,7 @@ public class FlyingFortress : MonoBehaviour
         if (currentTime > nextfire && playerJet != null)
         {
             nextfire += currentTime;
-
+            sfx.missiles.Play();
             //Instantiate an boss missiles on the left
             GameObject missiles1 = (GameObject)Instantiate(stealthMissiles);
 
@@ -211,6 +231,7 @@ public class FlyingFortress : MonoBehaviour
 
                     GameManagerObj.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.GameWin);
                     isBossDead = true;
+                    MainMenuButtons.level1 = false;
                     AttackHeliBoss.isBossDead = false;
                     StealthFighterBoss.isBossDead = false;
                     startBoss = false;
@@ -225,12 +246,41 @@ public class FlyingFortress : MonoBehaviour
             }
 
         }
+        else if ((col.tag == "PlayerMissiles"))
+        {
+            if (!flashActive && !BossShield.bossShieldActive)
+            {
+                stats.currentHealth -= 10;
+                flashActive = true;
+                flashCounter = flashLength + 1.5f;
+                ExplosionEffect();
+
+                if (stats.currentHealth <= 0)
+                {
+                    ExplosionEffect();
+
+                    GameManagerObj.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.GameWin);
+                    isBossDead = true;
+                    AttackHeliBoss.isBossDead = false;
+                    StealthFighterBoss.isBossDead = false;
+                    startBoss = false;
+                    Destroy(gameObject); //Destroy enemy
+
+                }
+
+                if (statsInd != null)
+                {
+                    statsInd.SetHealth(stats.currentHealth, stats.maxHealth);
+                }
+            }
+        }
 
     }
 
     //Function to instantiate explosion
     void ExplosionEffect()
     {
+        sfx.explosion.Play();
         //instiantiate explosion effect
         GameObject explode = (GameObject)Instantiate(Explosion);
 

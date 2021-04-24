@@ -12,15 +12,12 @@ public class MusicSwitcher : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
         theMC = FindObjectOfType<MusicController>();
 
         if (switchOnStart)
         {
-
             theMC.SwitchTrack(newTrack);
             gameObject.SetActive(false);
-
         }
     }
 

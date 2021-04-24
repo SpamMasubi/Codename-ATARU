@@ -10,13 +10,23 @@ public class SFXManager : MonoBehaviour
 
     public AudioSource selection;
     public AudioSource gameOver;
+    public AudioSource missiles;
+    public AudioSource explosion;
+
+    public AudioSource laser;
+    public AudioSource enemyBullets;
+
+    public AudioSource firstBossVoice;
+    public AudioSource secondBossVoice;
+    public AudioSource KarmovVoice;
+    public AudioSource dialogue;
 
     private static bool sfxManagerExist;
 
     // Use this for initialization
     void Start()
     {
-
+        /*
         if (!sfxManagerExist)
         {
             sfxManagerExist = true;
@@ -25,7 +35,7 @@ public class SFXManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
-        }
+        }*/
 
     }
 }

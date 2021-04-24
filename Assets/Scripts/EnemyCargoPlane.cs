@@ -9,11 +9,13 @@ public class EnemyCargoPlane : MonoBehaviour
     public bool drops;
     public GameObject[] itemsDrop;
     public Transform dropPoint;
+    private SFXManager sfx;
 
     // Start is called before the first frame update
     void Start()
     {
         speed = 6.5f; //set speed
+        sfx = FindObjectOfType<SFXManager>();
 
     }
 
@@ -42,7 +44,7 @@ public class EnemyCargoPlane : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
         //Detect collision of player with player fighter or player bullet/missiles
-        if ((col.tag == "PlayerJet") || (col.tag == "PlayerProjectiles") || (col.tag == "Shield"))
+        if ((col.tag == "PlayerJet") || (col.tag == "PlayerProjectiles") || (col.tag == "PlayerMissiles") || (col.tag == "Shield"))
         {
             ExplosionEffect();
 
@@ -61,6 +63,7 @@ public class EnemyCargoPlane : MonoBehaviour
     //Function to instantiate explosion
     void ExplosionEffect()
     {
+        sfx.explosion.Play();
         //instiantiate explosion effect
         GameObject explode = (GameObject)Instantiate(Explosion);
 

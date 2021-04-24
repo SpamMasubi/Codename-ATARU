@@ -645,6 +645,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7366050832798672091}
   - component: {fileID: 2060569339654676823}
+  - component: {fileID: 1554012372}
   m_Layer: 0
   m_Name: BGM Manager
   m_TagString: Untagged
@@ -693,7 +694,27 @@ MonoBehaviour:
   - {fileID: 7020981436701937999}
   - {fileID: 3016457969602342220}
   - {fileID: 4404115975582585782}
-  currentTrack: 4
+  currentTrack: 1
+--- !u!114 &1554012372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7366050832798672093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c5fa67c580e5fd4eae3a304f44aa275, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MusicAudio:
+  - {fileID: 6752669463832146244}
+  - {fileID: 394976644420000762}
+  - {fileID: 8491711549502356583}
+  - {fileID: 657652386131829735}
+  - {fileID: 7020981436701937999}
+  - {fileID: 3016457969602342220}
+  - {fileID: 4404115975582585782}
 --- !u!1 &8289868268378889257
 GameObject:
   m_ObjectHideFlags: 0

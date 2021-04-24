@@ -7,6 +7,7 @@ public class EnemyControl : MonoBehaviour
     float speed; //for enemy speed
     public GameObject Explosion; //explosion prefab
     GameObject EnemyKillCount;
+    private SFXManager sfx;
 
     // Start is called before the first frame update
     void Start()
@@ -14,6 +15,7 @@ public class EnemyControl : MonoBehaviour
         speed = 8f; //set speed
 
         EnemyKillCount = GameObject.FindGameObjectWithTag("KillCount");
+        sfx = FindObjectOfType<SFXManager>();
     }
 
     // Update is called once per frame
@@ -41,7 +43,7 @@ public class EnemyControl : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
         //Detect collision of player with player fighter or player bullet/missiles
-        if ((col.tag == "PlayerJet") || (col.tag == "PlayerProjectiles") || (col.tag == "Shield"))
+        if ((col.tag == "PlayerJet") || (col.tag == "PlayerProjectiles") || (col.tag == "PlayerMissiles") || (col.tag == "Shield"))
         {
             ExplosionEffect();
 
@@ -55,6 +57,7 @@ public class EnemyControl : MonoBehaviour
     //Function to instantiate explosion
     void ExplosionEffect()
     {
+        sfx.explosion.Play();
         //instiantiate explosion effect
         GameObject explode = (GameObject)Instantiate(Explosion);
 

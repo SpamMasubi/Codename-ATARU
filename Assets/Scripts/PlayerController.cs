@@ -47,6 +47,9 @@ public class PlayerController : MonoBehaviour
 	private float flashCounter;
 	private SpriteRenderer playerSprite;
 
+	private float attackRate = 5f;
+	private float nextTimeAttack = 0f;
+
 	void Awake()
 	{
 		if (playerControl == null)
@@ -103,13 +106,35 @@ public class PlayerController : MonoBehaviour
 	{
 #if UNITY_STANDALONE
 		//Fire bullets
-		if (Input.GetKeyDown(KeyCode.K) || Input.GetKeyDown(KeyCode.Z))
-		{
-			//play audio
-			sfx.playerBullet.Play();
+		if (Time.time >= nextTimeAttack)
+        {
+			if (Input.GetKey(KeyCode.Space) && !isFiring)
+			{
+				isFiring = true;
+                float delay = 0.2f;
+				//play audio
+				sfx.playerBullet.Play();
 
-			GameObject playerBullet = (GameObject)Instantiate(bullet);
-			playerBullet.transform.position = bulletPosition.transform.position;//set the bullet initial position
+				GameObject playerBullet = (GameObject)Instantiate(bullet);
+				playerBullet.transform.position = bulletPosition.transform.position;//set the bullet initial position
+				nextTimeAttack = Time.time + 1f / attackRate;
+                StartCoroutine(DoAttack(delay));
+			
+			}
+		}
+		
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
+				//play audio
+				sfx.playerBullet.Play();
+
+				GameObject playerBullet = (GameObject)Instantiate(bullet);
+				playerBullet.transform.position = bulletPosition.transform.position;//set the bullet initial position
+		}
+
+		if(Input.GetKeyDown(KeyCode.K) || Input.GetKeyDown(KeyCode.Z))
+		{
+			fireMissiles();
 		}
 		
 		float x = Input.GetAxisRaw("Horizontal");//the value will be -1, 0 or 1 (for left, no input, and right)
@@ -284,6 +309,12 @@ public class PlayerController : MonoBehaviour
 		playerBullet.transform.position = bulletPosition.transform.position;//set the bullet initial position
 	}
 
+	IEnumerator DoAttack(float delay)
+	{
+		yield return new WaitForSeconds(delay);
+		isFiring = false;
+	}
+
 	public void fireMissiles()
 	{
 		if (missilesInventory > 0)
@@ -294,6 +325,7 @@ public class PlayerController : MonoBehaviour
 
 			if (enemyJet != null) //if player not dead
 			{
+				sfx.missiles.Play();
 				//Instantiate an player missiles on the left
 				GameObject missiles1 = (GameObject)Instantiate(playerMissiles);
 
@@ -320,6 +352,7 @@ public class PlayerController : MonoBehaviour
 			}
 			else if (boss != null)
             {
+				sfx.missiles.Play();
 				//Instantiate an player missiles on the left
 				GameObject missiles1 = (GameObject)Instantiate(playerMissiles);
 
@@ -343,6 +376,21 @@ public class PlayerController : MonoBehaviour
 
 				//set the missle direction 
 				missiles2.GetComponent<PlayerMissles>().SetDirection(directionR);
+            }
+            else
+            {
+				sfx.missiles.Play();
+				//Instantiate an player missiles on the left
+				GameObject missiles1 = (GameObject)Instantiate(playerMissiles);
+
+				//set the missle's initial position
+				missiles1.transform.position = playerMisslesL.transform.position;
+
+				//Instantiate an player missiles on the right
+				GameObject missiles2 = (GameObject)Instantiate(playerMissiles);
+
+				//set the missle's initial position
+				missiles2.transform.position = playerMisslesR.transform.position;
 			}
 			missilesInventory--;
 			MissilesText.text = missilesInventory.ToString();
@@ -377,6 +425,7 @@ public class PlayerController : MonoBehaviour
 	//Function to instantiate explosion
 	void ExplosionEffect()
     {
+		sfx.explosion.Play();
 		//instiantiate explosion effect
 		GameObject explode = (GameObject)Instantiate(Explosion);
 

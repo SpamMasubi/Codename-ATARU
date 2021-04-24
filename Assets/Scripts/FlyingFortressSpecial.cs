@@ -10,12 +10,14 @@ public class FlyingFortressSpecial : MonoBehaviour
     float cannonReadyTimer = 0f;
 
     private Animator anim;
+    private SFXManager sfx;
 
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
         lazerGun = this.gameObject.transform;
+        sfx = FindObjectOfType<SFXManager>();
     }
 
     // Update is called once per frame
@@ -38,6 +40,7 @@ public class FlyingFortressSpecial : MonoBehaviour
                 attackTimer -= Time.deltaTime;
                 if (attackTimer <= 0f)
                 {
+                    sfx.laser.Play();
                     Instantiate(lazerBullet, lazerGun.position, Quaternion.identity);
                     anim.SetBool("IsReady", false);
                 }

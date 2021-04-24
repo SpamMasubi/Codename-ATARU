@@ -7,7 +7,7 @@ public class EnemyMiGSpawner : MonoBehaviour
 
     public GameObject MiGEnemyFighters; //this is our enemy prefabs
 
-    float maxSpawnRateInSeconds = 10.0f;
+    public static float maxSpawnRateInSeconds = 6.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -72,8 +72,16 @@ public class EnemyMiGSpawner : MonoBehaviour
     //start enemy spawner
     public void ScheduleEnemySpawner()
     {
-        //reset max spawn rate
-        maxSpawnRateInSeconds = 5.0f;
+        if (StealthFighterBoss.isBossDead || StageSelect.replayLevel3)
+        {
+            //reset max spawn rate
+            maxSpawnRateInSeconds = 5.0f;
+        }
+        else
+        {
+            //reset max spawn rate
+            maxSpawnRateInSeconds = 6.0f;
+        }
 
         Invoke("MiGSpawn", maxSpawnRateInSeconds);
 

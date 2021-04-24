@@ -14,6 +14,10 @@ public class MainMenuButtons : MonoBehaviour
     public static bool level1 = false;
     public static bool replayGame = false;
 
+    public static bool easyMode = false;
+    public static bool mediumMode = false;
+    public static bool hardMode = false;
+
     void Start()
     {
         sfxMan = FindObjectOfType<SFXManager>(); ;
@@ -24,12 +28,33 @@ public class MainMenuButtons : MonoBehaviour
 
     }
 
-    public void startGame()
+    public void easyModeSelection()
     {
         Debug.Log("Let's play");
         sfxMan.selection.Play();
         newGame = true;
         level1 = true;
+        easyMode = true;
+        SceneManager.LoadScene(loadScene);
+    }
+
+    public void mediumModeSelection()
+    {
+        Debug.Log("Let's play");
+        sfxMan.selection.Play();
+        newGame = true;
+        level1 = true;
+        mediumMode = true;
+        SceneManager.LoadScene(loadScene);
+    }
+
+    public void hardModeSelection()
+    {
+        Debug.Log("Let's play");
+        sfxMan.selection.Play();
+        newGame = true;
+        level1 = true;
+        hardMode = true;
         SceneManager.LoadScene(loadScene);
     }
 
@@ -55,5 +80,10 @@ public class MainMenuButtons : MonoBehaviour
         sfxMan.selection.Play();
         MusicController.musicCanPlay = false;
         SceneManager.LoadScene("Credit Scene");
+    }
+
+    public void setFullScreen(bool isFullScreen)
+    {
+        Screen.fullScreen = isFullScreen;
     }
 }

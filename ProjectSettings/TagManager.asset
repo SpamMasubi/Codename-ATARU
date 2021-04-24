@@ -14,6 +14,9 @@ TagManager:
   - Boss
   - Shield
   - BossShield
+  - PlayerMissiles
+  - MusicSlider
+  - SFXSlider
   layers:
   - Default
   - TransparentFX
@@ -71,4 +74,7 @@ TagManager:
     locked: 0
   - name: Joystick
     uniqueID: 867825977
+    locked: 0
+  - name: Camera
+    uniqueID: 4081409147
     locked: 0

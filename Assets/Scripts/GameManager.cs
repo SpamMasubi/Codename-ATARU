@@ -99,6 +99,7 @@ public class GameManager : MonoBehaviour
                 //hide play button on game play state
                 playButton.SetActive(false);
 
+#if UNITY_ANDROID || UNITY_IOS
                 //shoot button display
                 shootButton.SetActive(true);
                 missilesButton.SetActive(true);
@@ -106,29 +107,118 @@ public class GameManager : MonoBehaviour
                 //display joystick
                 JoystickOuter.SetActive(true);
                 JoystickInner.SetActive(true);
-
-                //start enemy spawner
-                if (MainMenuButtons.level1 || StageSelect.replayLevel1)
+#endif
+                if (MainMenuButtons.easyMode)
                 {
-                    enemySpawner.GetComponent<EnemyMiGSpawner>().ScheduleEnemySpawner();
-                    cargoSpawner.GetComponent<EnemyCargoSpawner>().ScheduleEnemySpawner();
-                    //start the killCount
-                    EnemyKillCountObj.GetComponent<EnemyKillCount>().KillCount = 20;
+                    //start enemy spawner
+                    if (MainMenuButtons.level1 || StageSelect.replayLevel1)
+                    {
+                        enemySpawner.GetComponent<EnemyMiGSpawner>().ScheduleEnemySpawner();
+                        cargoSpawner.GetComponent<EnemyCargoSpawner>().ScheduleEnemySpawner();
+                        //start the killCount
+                        EnemyKillCountObj.GetComponent<EnemyKillCount>().KillCount = 10;
+                    }
+                    else if (AttackHeliBoss.isBossDead || StageSelect.replayLevel2)
+                    {
+                        secondFighterSpawner.GetComponent<EnemySukhoiSpawner>().ScheduleEnemySpawner();
+                        cargoSpawner.GetComponent<EnemyCargoSpawner>().ScheduleEnemySpawner();
+                        //start the killCount
+                        EnemyKillCountObj.GetComponent<EnemyKillCount>().KillCount = 20;
+                    }
+                    else if (StealthFighterBoss.isBossDead || StageSelect.replayLevel3)
+                    {
+                        EnemyMiGSpawner.maxSpawnRateInSeconds = 5.0f;
+                        EnemySukhoiSpawner.maxSpawnRateInSeconds = 7.0f;
+                        enemySpawner.GetComponent<EnemyMiGSpawner>().ScheduleEnemySpawner();
+                        secondFighterSpawner.GetComponent<EnemySukhoiSpawner>().ScheduleEnemySpawner();
+                        cargoSpawner.GetComponent<EnemyCargoSpawner>().ScheduleEnemySpawner();
+                        //start the killCount
+                        EnemyKillCountObj.GetComponent<EnemyKillCount>().KillCount = 30;
+                    }
                 }
-                else if (AttackHeliBoss.isBossDead || StageSelect.replayLevel2)
+                else if (MainMenuButtons.mediumMode)
                 {
-                    secondFighterSpawner.GetComponent<EnemySukhoiSpawner>().ScheduleEnemySpawner();
-                    cargoSpawner.GetComponent<EnemyCargoSpawner>().ScheduleEnemySpawner();
-                    //start the killCount
-                    EnemyKillCountObj.GetComponent<EnemyKillCount>().KillCount = 30;
+                    //start enemy spawner
+                    if (MainMenuButtons.level1 || StageSelect.replayLevel1)
+                    {
+                        enemySpawner.GetComponent<EnemyMiGSpawner>().ScheduleEnemySpawner();
+                        cargoSpawner.GetComponent<EnemyCargoSpawner>().ScheduleEnemySpawner();
+                        //start the killCount
+                        EnemyKillCountObj.GetComponent<EnemyKillCount>().KillCount = 20;
+                    }
+                    else if (AttackHeliBoss.isBossDead || StageSelect.replayLevel2)
+                    {
+                        secondFighterSpawner.GetComponent<EnemySukhoiSpawner>().ScheduleEnemySpawner();
+                        cargoSpawner.GetComponent<EnemyCargoSpawner>().ScheduleEnemySpawner();
+                        //start the killCount
+                        EnemyKillCountObj.GetComponent<EnemyKillCount>().KillCount = 30;
+                    }
+                    else if (StealthFighterBoss.isBossDead || StageSelect.replayLevel3)
+                    {
+                        EnemyMiGSpawner.maxSpawnRateInSeconds = 5.0f;
+                        EnemySukhoiSpawner.maxSpawnRateInSeconds = 7.0f;
+                        enemySpawner.GetComponent<EnemyMiGSpawner>().ScheduleEnemySpawner();
+                        secondFighterSpawner.GetComponent<EnemySukhoiSpawner>().ScheduleEnemySpawner();
+                        cargoSpawner.GetComponent<EnemyCargoSpawner>().ScheduleEnemySpawner();
+                        //start the killCount
+                        EnemyKillCountObj.GetComponent<EnemyKillCount>().KillCount = 40;
+                    }
                 }
-                else if (StealthFighterBoss.isBossDead || StageSelect.replayLevel3)
+                else if (MainMenuButtons.hardMode)
                 {
-                    enemySpawner.GetComponent<EnemyMiGSpawner>().ScheduleEnemySpawner();
-                    secondFighterSpawner.GetComponent<EnemySukhoiSpawner>().ScheduleEnemySpawner();
-                    cargoSpawner.GetComponent<EnemyCargoSpawner>().ScheduleEnemySpawner();
-                    //start the killCount
-                    EnemyKillCountObj.GetComponent<EnemyKillCount>().KillCount = 40;
+                    //start enemy spawner
+                    if (MainMenuButtons.level1 || StageSelect.replayLevel1)
+                    {
+                        enemySpawner.GetComponent<EnemyMiGSpawner>().ScheduleEnemySpawner();
+                        cargoSpawner.GetComponent<EnemyCargoSpawner>().ScheduleEnemySpawner();
+                        //start the killCount
+                        EnemyKillCountObj.GetComponent<EnemyKillCount>().KillCount = 30;
+                    }
+                    else if (AttackHeliBoss.isBossDead || StageSelect.replayLevel2)
+                    {
+                        secondFighterSpawner.GetComponent<EnemySukhoiSpawner>().ScheduleEnemySpawner();
+                        cargoSpawner.GetComponent<EnemyCargoSpawner>().ScheduleEnemySpawner();
+                        //start the killCount
+                        EnemyKillCountObj.GetComponent<EnemyKillCount>().KillCount = 40;
+                    }
+                    else if (StealthFighterBoss.isBossDead || StageSelect.replayLevel3)
+                    {
+                        EnemyMiGSpawner.maxSpawnRateInSeconds = 5.0f;
+                        EnemySukhoiSpawner.maxSpawnRateInSeconds = 7.0f;
+                        enemySpawner.GetComponent<EnemyMiGSpawner>().ScheduleEnemySpawner();
+                        secondFighterSpawner.GetComponent<EnemySukhoiSpawner>().ScheduleEnemySpawner();
+                        cargoSpawner.GetComponent<EnemyCargoSpawner>().ScheduleEnemySpawner();
+                        //start the killCount
+                        EnemyKillCountObj.GetComponent<EnemyKillCount>().KillCount = 50;
+                    }
+                }
+                else
+                {
+                    //start enemy spawner
+                    if (MainMenuButtons.level1 || StageSelect.replayLevel1)
+                    {
+                        enemySpawner.GetComponent<EnemyMiGSpawner>().ScheduleEnemySpawner();
+                        cargoSpawner.GetComponent<EnemyCargoSpawner>().ScheduleEnemySpawner();
+                        //start the killCount
+                        EnemyKillCountObj.GetComponent<EnemyKillCount>().KillCount = 20;
+                    }
+                    else if (AttackHeliBoss.isBossDead || StageSelect.replayLevel2)
+                    {
+                        secondFighterSpawner.GetComponent<EnemySukhoiSpawner>().ScheduleEnemySpawner();
+                        cargoSpawner.GetComponent<EnemyCargoSpawner>().ScheduleEnemySpawner();
+                        //start the killCount
+                        EnemyKillCountObj.GetComponent<EnemyKillCount>().KillCount = 30;
+                    }
+                    else if (StealthFighterBoss.isBossDead || StageSelect.replayLevel3)
+                    {
+                        EnemyMiGSpawner.maxSpawnRateInSeconds = 5.0f;
+                        EnemySukhoiSpawner.maxSpawnRateInSeconds = 7.0f;
+                        enemySpawner.GetComponent<EnemyMiGSpawner>().ScheduleEnemySpawner();
+                        secondFighterSpawner.GetComponent<EnemySukhoiSpawner>().ScheduleEnemySpawner();
+                        cargoSpawner.GetComponent<EnemyCargoSpawner>().ScheduleEnemySpawner();
+                        //start the killCount
+                        EnemyKillCountObj.GetComponent<EnemyKillCount>().KillCount = 40;
+                    }
                 }
 
                 break;
@@ -142,11 +232,14 @@ public class GameManager : MonoBehaviour
 
                 rightWall.SetActive(true);
                 leftWall.SetActive(true);
+
+                sfx.dialogue.Play();
                 //start enemy spawner
                 if (MainMenuButtons.level1 || StageSelect.replayLevel1)
                 {
                     newTrack = 3;
                     theMC.SwitchTrack(newTrack);
+                    sfx.firstBossVoice.Play();
                     StartCoroutine(startBossDialogue());
                     heliBoss.SetActive(true);
                 }
@@ -154,6 +247,7 @@ public class GameManager : MonoBehaviour
                 {
                     newTrack = 3;
                     theMC.SwitchTrack(newTrack);
+                    sfx.secondBossVoice.Play();
                     StartCoroutine(startBossDialogue());
                     stealthFighterBoss.SetActive(true);
                 }
@@ -161,6 +255,7 @@ public class GameManager : MonoBehaviour
                 {
                     newTrack = 5;
                     theMC.SwitchTrack(newTrack);
+                    sfx.KarmovVoice.Play();
                     StartCoroutine(startBossDialogue());
                     finalBoss.SetActive(true);
                 }
@@ -206,11 +301,16 @@ public class GameManager : MonoBehaviour
                 JoystickOuter.SetActive(false);
                 JoystickInner.SetActive(false);
 
+#if UNITY_ANDROID || UNITY_IOS
                 //shoot button display
                 shootButton.SetActive(false);
                 missilesButton.SetActive(false);
+#endif
 
                 EnemyKillCount.canStartBoss = false;
+                AttackHeliBoss.startBoss = false;
+                StealthFighterBoss.startBoss = false;
+                FlyingFortress.startBoss = false;
 
                 break;
 
@@ -230,9 +330,11 @@ public class GameManager : MonoBehaviour
                 playerJet.SetActive(false);
                 MusicController.musicCanPlay = false;
 
+#if UNITY_ANDROID || UNITY_IOS
                 //hide joystick
                 JoystickOuter.SetActive(false);
                 JoystickInner.SetActive(false);
+#endif
 
                 //shoot button display
                 shootButton.SetActive(false);
@@ -241,6 +343,9 @@ public class GameManager : MonoBehaviour
 
                 EnemyKillCount.canStartBoss = false;
                 MainMenuButtons.newGame = false;
+                AttackHeliBoss.startBoss = false;
+                StealthFighterBoss.startBoss = false;
+                FlyingFortress.startBoss = false;
 
                 break;
         }
@@ -279,6 +384,10 @@ public class GameManager : MonoBehaviour
         sfx.selection.Play();
         MainMenuButtons.newGame = false;
         MainMenuButtons.replayGame = false;
+        MusicController.musicCanPlay = true;
+        MainMenuButtons.easyMode = false;
+        MainMenuButtons.mediumMode = false;
+        MainMenuButtons.hardMode = false;
         SceneManager.LoadScene("Main Menu");
     }
 

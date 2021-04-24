@@ -10,10 +10,12 @@ public class BossShield : MonoBehaviour
 
     public static bool bossShieldActive = false;
 
+    private SFXManager sfx;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        sfx = FindObjectOfType<SFXManager>();
     }
 
     // Update is called once per frame
@@ -34,7 +36,7 @@ public class BossShield : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
         //Detect collision of shield with player projectiles
-        if ((col.tag == "PlayerProjectiles") && bossShieldActive)
+        if ((col.tag == "PlayerProjectiles" || col.tag == "PlayerMissiles") && bossShieldActive)
         {
             ExplosionEffect();
             shieldCountBeforeDestroy--;
@@ -45,6 +47,7 @@ public class BossShield : MonoBehaviour
     //Function to instantiate explosion
     void ExplosionEffect()
     {
+        sfx.explosion.Play();
         //instiantiate explosion effect
         GameObject explode = (GameObject)Instantiate(Explosion);
 

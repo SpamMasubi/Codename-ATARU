@@ -59,6 +59,10 @@ public class PauseMenu : MonoBehaviour
             StageSelect.replayLevel1 = false;
             StageSelect.replayLevel2 = false;
             StageSelect.replayLevel3 = false;
+            EnemyKillCount.canStartBoss = false;
+            AttackHeliBoss.startBoss = false;
+            StealthFighterBoss.startBoss = false;
+            FlyingFortress.startBoss = false;
         }
         else
         {
@@ -68,6 +72,13 @@ public class PauseMenu : MonoBehaviour
             SceneManager.LoadScene("Main Menu");
             MusicController.musicPause = false;
             MainMenuButtons.newGame = false;
+            EnemyKillCount.canStartBoss = false;
+            AttackHeliBoss.startBoss = false;
+            StealthFighterBoss.startBoss = false;
+            FlyingFortress.startBoss = false;
+            MainMenuButtons.easyMode = false;
+            MainMenuButtons.mediumMode = false;
+            MainMenuButtons.hardMode = false;
         }
     }
 }

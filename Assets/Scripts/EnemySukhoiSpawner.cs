@@ -6,7 +6,7 @@ public class EnemySukhoiSpawner : MonoBehaviour
 {
     public GameObject SukhoiEnemyFighters; //this is our enemy prefabs
 
-    float maxSpawnRateInSeconds = 10.0f;
+    public static float maxSpawnRateInSeconds = 6.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -72,8 +72,19 @@ public class EnemySukhoiSpawner : MonoBehaviour
     //start enemy spawner
     public void ScheduleEnemySpawner()
     {
+        if (StealthFighterBoss.isBossDead || StageSelect.replayLevel3)
+        {
+            //reset max spawn rate
+            maxSpawnRateInSeconds = 7.0f;
+        }
+        else
+        {
+            //reset max spawn rate
+            maxSpawnRateInSeconds = 6.0f;
+        }
+
         //reset max spawn rate
-        maxSpawnRateInSeconds = 5.0f;
+        maxSpawnRateInSeconds = 10.0f;
 
         Invoke("SukhoiSpawn", maxSpawnRateInSeconds);
 

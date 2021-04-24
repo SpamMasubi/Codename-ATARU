@@ -8,12 +8,14 @@ public class EnemySukhoiMissilesLauncher : MonoBehaviour
     public GameObject missileLauncherR; //enemy bullet prefab
 
     public GameObject EnemyBullet; //enemy bullet prefab
+    private SFXManager sfx;
 
     // Start is called before the first frame update
     void Start()
     {
         //fire an enemy bullet for 1 second
         Invoke("fireMissiles", 0.8f);
+        sfx = FindObjectOfType<SFXManager>();
     }
 
     // Update is called once per frame
@@ -30,6 +32,7 @@ public class EnemySukhoiMissilesLauncher : MonoBehaviour
 
         if (playerJet != null) //if player not dead
         {
+            sfx.missiles.Play();
             //Instantiate an boss missiles on the left
             GameObject missiles1 = (GameObject)Instantiate(EnemyBullet);
 

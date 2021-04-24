@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class EnemyGun : MonoBehaviour
 {
-
+    private SFXManager sfx;
     public GameObject EnemyBullet; //enemy bullet prefab
 
     // Start is called before the first frame update
     void Start()
     {
+        sfx = FindObjectOfType<SFXManager>();
         //fire an enemy bullet for 1 second
         Invoke("fireBullets", 1.0f);
     }
@@ -28,6 +29,7 @@ public class EnemyGun : MonoBehaviour
 
         if(playerJet != null) //if player not dead
         {
+            sfx.missiles.Play();
             //Instantiate an enemy bullet
             GameObject bullet = (GameObject)Instantiate(EnemyBullet);
 

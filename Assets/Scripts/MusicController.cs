@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MusicController : MonoBehaviour
 {
-    public static bool mcExists;
+    private static MusicController instance;
 
     public AudioSource[] musicTracks;
 
@@ -14,18 +14,18 @@ public class MusicController : MonoBehaviour
     public static bool musicPause = false;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
-
-        if (!mcExists)
-        {
-            mcExists = true;
-            DontDestroyOnLoad(transform.gameObject);
-        }
-        else
+        /*
+        if(instance != null)
         {
             Destroy(gameObject);
         }
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(transform.gameObject);
+        }*/
 
     }
 

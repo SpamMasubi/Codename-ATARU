@@ -29,7 +29,6 @@ public class ChapterIntroUI : MonoBehaviour
     {
         if (MainMenuButtons.newGame)
         {
-            
             levelTitle.text = "Level 1";
             levelLocation.text = "South Pacific";
             StartCoroutine(activeStart());

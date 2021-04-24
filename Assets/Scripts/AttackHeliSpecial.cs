@@ -9,11 +9,12 @@ public class AttackHeliSpecial : MonoBehaviour
 
     public GameObject attackHeliMissiles;
     float attackTimer = 0f;
+    private SFXManager sfx;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        sfx = FindObjectOfType<SFXManager>();
     }
 
     // Update is called once per frame
@@ -42,6 +43,7 @@ public class AttackHeliSpecial : MonoBehaviour
 
         if (playerJet != null) //if player not dead
         {
+            sfx.missiles.Play();
             //Instantiate an boss missiles on the left
             GameObject missiles1 = (GameObject)Instantiate(attackHeliMissiles);
 

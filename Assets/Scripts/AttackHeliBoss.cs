@@ -8,7 +8,6 @@ public class AttackHeliBoss : MonoBehaviour
     public class EnemyStats
     {
         public int maxHealth = 100;
-
         private int _curHealth;
         public int currentHealth
         {
@@ -39,14 +38,30 @@ public class AttackHeliBoss : MonoBehaviour
     public static bool startBoss = false;
     public static bool isBossDead = false;
 
-    GameObject scoreUIText; //reference to our score text
     public GameObject Explosion; //explosion prefab
 
     public GameObject GameManagerObj;//reference to Game Maanger
+    private SFXManager sfx;
 
     void Awake()
     {
-        stats.Init();
+        if (MainMenuButtons.easyMode)
+        {
+            stats.maxHealth = 80;
+            stats.Init();
+        }
+        else if(MainMenuButtons.mediumMode){
+            stats.Init();
+        }else if (MainMenuButtons.hardMode)
+        {
+            stats.maxHealth = 120;
+            stats.Init();
+        }
+        else
+        {
+            stats.Init();
+        }
+        
         if (statsInd != null)
         {
             statsInd.SetHealth(stats.currentHealth, stats.maxHealth);
@@ -57,7 +72,7 @@ public class AttackHeliBoss : MonoBehaviour
     {
         boss = this.gameObject.GetComponent<Rigidbody2D>();
         enemySprite = GetComponent<SpriteRenderer>();
-        scoreUIText = GameObject.FindGameObjectWithTag("ScoreText");
+        sfx = FindObjectOfType<SFXManager>();
     }
 
     // Update is called once per frame
@@ -177,12 +192,40 @@ public class AttackHeliBoss : MonoBehaviour
             }
 
         }
+        else if ((col.tag == "PlayerMissiles"))
+        {
+            if (!flashActive)
+            {
+                stats.currentHealth -= 10;
+                flashActive = true;
+                flashCounter = flashLength + 1.5f;
+                ExplosionEffect();
+
+                if (stats.currentHealth <= 0)
+                {
+                    ExplosionEffect();
+
+                    GameManagerObj.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.GameWin);
+                    isBossDead = true;
+                    MainMenuButtons.level1 = false;
+                    startBoss = false;
+                    Destroy(gameObject); //Destroy enemy
+
+                }
+
+                if (statsInd != null)
+                {
+                    statsInd.SetHealth(stats.currentHealth, stats.maxHealth);
+                }
+            }
+        }
 
     }
 
     //Function to instantiate explosion
     void ExplosionEffect()
     {
+        sfx.explosion.Play();
         //instiantiate explosion effect
         GameObject explode = (GameObject)Instantiate(Explosion);
 

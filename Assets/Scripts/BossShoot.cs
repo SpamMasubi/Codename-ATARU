@@ -9,11 +9,13 @@ public class BossShoot : MonoBehaviour
 
     public float nextfire = 1.0f;
     public float currentTime = 0.0f;
+    private SFXManager sfx;
 
     // Start is called before the first frame update
     void Start()
     {
         bulletSpawn = this.gameObject.transform;
+        sfx = FindObjectOfType<SFXManager>();
     }
 
     // Update is called once per frame
@@ -30,6 +32,7 @@ public class BossShoot : MonoBehaviour
         {
             nextfire += currentTime;
 
+            sfx.enemyBullets.Play();
             Instantiate(bullet, bulletSpawn.position, Quaternion.identity);
 
             nextfire -= currentTime;
