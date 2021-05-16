@@ -72,6 +72,7 @@ public class PauseMenu : MonoBehaviour
             SceneManager.LoadScene("Main Menu");
             MusicController.musicPause = false;
             MainMenuButtons.newGame = false;
+            MainMenuButtons.level1 = false;
             EnemyKillCount.canStartBoss = false;
             AttackHeliBoss.startBoss = false;
             StealthFighterBoss.startBoss = false;

@@ -383,6 +383,7 @@ public class GameManager : MonoBehaviour
     {
         sfx.selection.Play();
         MainMenuButtons.newGame = false;
+        MainMenuButtons.level1 = false;
         MainMenuButtons.replayGame = false;
         MusicController.musicCanPlay = true;
         MainMenuButtons.easyMode = false;
