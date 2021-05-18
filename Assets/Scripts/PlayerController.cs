@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
 	public Text LivesUI; //refrence to lives ui text
 	const int maxLives = 3; //maximum lives of player
 	private static int lives; //current player's lives
+	
+	//player lives 
 	public static int playerLives
 	{
 		get { return lives; }
@@ -28,6 +30,8 @@ public class PlayerController : MonoBehaviour
 	public Text MissilesText;
 	const int maxMissiles = 3;
 	private static int missilesInventory;
+
+	//player missile inventory
 	public static int missilesStocks
 	{
 		get { return missilesInventory; }
@@ -37,6 +41,7 @@ public class PlayerController : MonoBehaviour
 	private bool isFiring;
 	bool stopFiring;
 
+	//mobile buttons
 	public GameObject circle;
 	public GameObject outerCircle;
 	private Vector2 startingPoint;
@@ -52,7 +57,7 @@ public class PlayerController : MonoBehaviour
 
 	void Awake()
 	{
-		if (playerControl == null)
+		if (playerControl == null) //find the player on awake
 		{
 			playerControl = GameObject.FindGameObjectWithTag("PlayerJet").GetComponent<PlayerController>();
 		}
@@ -196,7 +201,7 @@ public class PlayerController : MonoBehaviour
 		}
 #endif
 
-		if (flashActive)
+		if (flashActive) //when taken damage, player goes into flash invincibility for temporary moment
 		{
 
 			if (flashCounter > flashLength * 2.64f)
@@ -244,7 +249,7 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	Vector2 getTouchPosition(Vector2 touchPosition)
+	Vector2 getTouchPosition(Vector2 touchPosition) //function for mobile controller on touch position
 	{
 		return Camera.main.ScreenToWorldPoint(new Vector3(touchPosition.x, touchPosition.y, transform.position.z));
 	}
@@ -274,6 +279,8 @@ public class PlayerController : MonoBehaviour
 		//Update the player's position
 		transform.position = pos;
 	}
+
+	//These functions are for rapid fire when player hold the fire button(Mobile controller)
 	public void isFiringBullets()
 	{
 		stopFiring = false;
@@ -309,13 +316,13 @@ public class PlayerController : MonoBehaviour
 		playerBullet.transform.position = bulletPosition.transform.position;//set the bullet initial position
 	}
 
-	IEnumerator DoAttack(float delay)
+	IEnumerator DoAttack(float delay) //Rapid Fire when player hold down space key to shoot(Standalone controller)
 	{
 		yield return new WaitForSeconds(delay);
 		isFiring = false;
 	}
 
-	public void fireMissiles()
+	public void fireMissiles() //function for player's missile when fire
 	{
 		if (missilesInventory > 0)
 		{
@@ -446,7 +453,7 @@ public class PlayerController : MonoBehaviour
 		sfx.player1UP.Play();
 	}
 
-	//Function to get life points
+	//Function to get missiles for inventory
 	public static void GetMissiles(MissilesIncr missilesInc)
 	{
 		playerControl._GetMissiles(missilesInc);

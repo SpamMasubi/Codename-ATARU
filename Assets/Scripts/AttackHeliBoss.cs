@@ -45,6 +45,7 @@ public class AttackHeliBoss : MonoBehaviour
 
     void Awake()
     {
+        //initialize Boss heallth base on player's choosing of gameplay mode
         if (MainMenuButtons.easyMode)
         {
             stats.maxHealth = 80;
@@ -57,7 +58,7 @@ public class AttackHeliBoss : MonoBehaviour
             stats.maxHealth = 120;
             stats.Init();
         }
-        else
+        else //initialized default health
         {
             stats.Init();
         }
@@ -78,7 +79,7 @@ public class AttackHeliBoss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (EnemyKillCount.canStartBoss)
+        if (EnemyKillCount.canStartBoss) //begin Boss when enemy kill count counter is 0
         {
             startBoss = true;
             if (startBoss)
@@ -87,7 +88,7 @@ public class AttackHeliBoss : MonoBehaviour
             }
         }
 
-        if (flashActive)
+        if (flashActive) //when taken hit, Boss goes to flash invincibility for a temporary moment
         {
 
             if (flashCounter > flashLength * 2.64f)
@@ -136,7 +137,7 @@ public class AttackHeliBoss : MonoBehaviour
 
     }
 
-    public void moveEnemy()
+    public void moveEnemy() //move the Boss left and right
     {
         if (changeDirection == true)
         {
@@ -148,7 +149,7 @@ public class AttackHeliBoss : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D col)
+    void OnCollisionEnter2D(Collision2D col) //if Boss hits the boundary of the game, change the direction
     {
         if (col.gameObject.name == "RightBound")
         {
@@ -163,7 +164,7 @@ public class AttackHeliBoss : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        //Detect collision of player with player fighter or player bullet/missiles
+        //Detect collision of player with player bullets
         if ((col.tag == "PlayerProjectiles"))
         {
             if (!flashActive)
@@ -177,7 +178,7 @@ public class AttackHeliBoss : MonoBehaviour
                 {
                     ExplosionEffect();
 
-                    GameManagerObj.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.GameWin);
+                    GameManagerObj.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.GameWin); //change game to Win state
                     isBossDead = true;
                     MainMenuButtons.level1 = false;
                     startBoss = false;
@@ -192,7 +193,7 @@ public class AttackHeliBoss : MonoBehaviour
             }
 
         }
-        else if ((col.tag == "PlayerMissiles"))
+        else if ((col.tag == "PlayerMissiles")) //Detect collision of player with player missiles
         {
             if (!flashActive)
             {
@@ -205,7 +206,7 @@ public class AttackHeliBoss : MonoBehaviour
                 {
                     ExplosionEffect();
 
-                    GameManagerObj.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.GameWin);
+                    GameManagerObj.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.GameWin); //change game to Win state
                     isBossDead = true;
                     MainMenuButtons.level1 = false;
                     startBoss = false;

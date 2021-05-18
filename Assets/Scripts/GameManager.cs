@@ -108,6 +108,7 @@ public class GameManager : MonoBehaviour
                 JoystickOuter.SetActive(true);
                 JoystickInner.SetActive(true);
 #endif
+                //Start Game based on user's chose of gameplay mode
                 if (MainMenuButtons.easyMode)
                 {
                     //start enemy spawner
@@ -192,7 +193,7 @@ public class GameManager : MonoBehaviour
                         EnemyKillCountObj.GetComponent<EnemyKillCount>().KillCount = 50;
                     }
                 }
-                else
+                else //default gameplay mode
                 {
                     //start enemy spawner
                     if (MainMenuButtons.level1 || StageSelect.replayLevel1)
@@ -372,14 +373,14 @@ public class GameManager : MonoBehaviour
         SetGameManagerState(GameManagerState.Opening);
     }
 
-    public void GameOverContinueGame()
+    public void GameOverContinueGame()//In game over state, if player chooses to continue the game
     {
         sfx.selection.Play();
         gameOverStart.SetActive(false);
         ChangeToOpeningState();
     }
 
-    public void GameOverQuitGame()
+    public void GameOverQuitGame() //In game over state, if player chooses to quit game
     {
         sfx.selection.Play();
         MainMenuButtons.newGame = false;
@@ -392,7 +393,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Main Menu");
     }
 
-    public void NextLevel()
+    public void NextLevel() //Change to next scene
     {
         if (MainMenuButtons.replayGame)
         {
