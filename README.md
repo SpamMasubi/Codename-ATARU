@@ -11,7 +11,7 @@ against the United Nations. Fearing a world war will end with a terrorist victor
 United Nations formed a task force alliance called the UN Task Force. Leading the 
 alliance is fighter pilot Lt. Kazuki Yamamoto(Codename: ATARU). Flying his F-78 Lum fighter jet,
 ATARU will go head on with the terrorist's fleet of fighter jets in a dog fighter for the 
-fate to world peace.
+fate of world peace.
 
 Full Game For Mac and Windows:
 https://drive.google.com/drive/folders/1zYJSMjzfE2r-ZS_egOW82dpoDyePHz6c?usp=sharing
